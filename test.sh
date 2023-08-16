@@ -2,6 +2,8 @@
 set -euf -o pipefail
 set -x
 
+D="$(dirname "$0")"
+
 abs_path() {
 	case "$1" in
 		/*) printf "%s\n" "$1";;
@@ -9,8 +11,8 @@ abs_path() {
 	esac
 }
 
-export CARGO_TARGET_DIR="$(abs_path "$(dirname $0)/target")"
+export CARGO_TARGET_DIR="$(abs_path "$D/target")"
+rm -r "$CARGO_TARGET_DIR"
 
-(cd a; cargo build)
-(cd b; cargo build)
-
+(cd "$D"/a; cargo build)
+(cd "$D"/b; cargo build)
